@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TPT / Etsy Square Thumbnails</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap');
+:root{--hero:#1B4DFF;--ink:#16162A;--paper:#FAF7F2;--muted:#6A6A7A;--line:#D9E0EC;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#33333a;font-family:'Inter',sans-serif;}
+.sq{width:1000px;height:1000px;background:var(--paper);position:relative;overflow:hidden;margin:0 auto;}
+.grid-bg{position:absolute;inset:0;background-image:radial-gradient(circle,#d9d3c8 1.4px,transparent 1.4px);background-size:34px 34px;opacity:.4;}
+/* big accent block top */
+.topblock{position:absolute;top:0;left:0;right:0;height:300px;display:flex;flex-direction:column;justify-content:center;padding:0 64px;}
+.topblock .series{font-family:'Space Grotesk';font-weight:700;font-size:22px;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,.9);}
+.topblock .booknum{font-family:'Caveat';font-weight:700;font-size:44px;color:#fff;margin-top:2px;}
+/* giant ghost number */
+.ghost{position:absolute;font-family:'Space Grotesk';font-weight:700;font-size:560px;line-height:1;right:-40px;top:120px;opacity:.08;letter-spacing:-20px;pointer-events:none;}
+.body{position:absolute;top:300px;left:0;right:0;bottom:120px;padding:54px 64px 0;display:flex;flex-direction:column;}
+.title{font-family:'Space Grotesk';font-weight:700;font-size:78px;line-height:.95;color:var(--ink);letter-spacing:-3px;}
+.sub{font-size:30px;line-height:1.25;color:#3a3a48;font-weight:500;margin-top:24px;max-width:92%;}
+.badges{display:flex;gap:14px;margin-top:auto;flex-wrap:wrap;}
+.badge{font-family:'Space Grotesk';font-weight:700;font-size:21px;color:#fff;padding:13px 22px;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.14);}
+/* corner sticker */
+.sticker{position:absolute;top:330px;right:54px;width:200px;height:200px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(8deg);box-shadow:0 6px 16px rgba(0,0,0,.18);z-index:4;text-align:center;color:#fff;}
+.sticker .big{font-family:'Space Grotesk';font-weight:700;font-size:54px;line-height:.9;}
+.sticker .sm{font-family:'Space Grotesk';font-weight:600;font-size:17px;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.foot{position:absolute;bottom:34px;left:64px;font-family:'Caveat';font-weight:700;font-size:30px;color:var(--muted);}
+.footmark{position:absolute;bottom:38px;right:64px;font-family:'Space Grotesk';font-weight:700;font-size:18px;letter-spacing:1px;color:var(--ink);text-transform:uppercase;}
+</style></head><body>
+
+<!-- BOOK 1 — coral -->
+<div class="sq" data-document-role="page" data-label="Thumb — Book 1">
+  <div class="grid-bg"></div>
+  <div class="topblock" style="background:#FF5A5F;"><div class="series">The AI-Powered Classroom</div><div class="booknum">Book One</div></div>
+  <div class="ghost" style="color:#FF5A5F;">1</div>
+  <div class="sticker" style="background:#1B4DFF;"><div class="big">31</div><div class="sm">Projects</div></div>
+  <div class="body">
+    <div class="title">Student<br>Project &amp;<br>Prompt<br>Workbook</div>
+    <div class="sub">AI projects that build real mastery — not shortcuts.</div>
+    <div class="badges"><div class="badge" style="background:#1B4DFF;">Free &amp; Paid Prompts</div><div class="badge" style="background:#16162A;">K–12 · All Subjects</div></div>
+  </div>
+  <div class="foot">Keep the thinking with the student.</div>
+  <div class="footmark">Claude &amp; Gemini</div>
+</div>
+
+<!-- BOOK 2 — amber -->
+<div class="sq" data-document-role="page" data-label="Thumb — Book 2">
+  <div class="grid-bg"></div>
+  <div class="topblock" style="background:#F5A623;"><div class="series">The AI-Powered Classroom</div><div class="booknum">Book Two</div></div>
+  <div class="ghost" style="color:#F5A623;">2</div>
+  <div class="sticker" style="background:#1B4DFF;"><div class="big">12</div><div class="sm">Workflows</div></div>
+  <div class="body">
+    <div class="title">AI<br>Workflows<br>for<br>Teachers</div>
+    <div class="sub">Steal my whole system and get your evenings back.</div>
+    <div class="badges"><div class="badge" style="background:#1B4DFF;">The Mastery Loop</div><div class="badge" style="background:#16162A;">Build-Once Gems</div></div>
+  </div>
+  <div class="foot">Save the time. Build the mastery.</div>
+  <div class="footmark">Claude &amp; Gemini</div>
+</div>
+
+<!-- BOOK 3 — teal -->
+<div class="sq" data-document-role="page" data-label="Thumb — Book 3">
+  <div class="grid-bg"></div>
+  <div class="topblock" style="background:#0AB6BD;"><div class="series">The AI-Powered Classroom</div><div class="booknum">Book Three</div></div>
+  <div class="ghost" style="color:#0AB6BD;">3</div>
+  <div class="sticker" style="background:#1B4DFF;"><div class="big">15</div><div class="sm">Builds</div></div>
+  <div class="body">
+    <div class="title">The<br>Build-an-<br>Agent<br>Workbook</div>
+    <div class="sub">Build AI assistants that know your classroom.</div>
+    <div class="badges"><div class="badge" style="background:#1B4DFF;">Homework-Replacing Tutor</div><div class="badge" style="background:#16162A;">3 Platforms</div></div>
+  </div>
+  <div class="foot">Build once. Use all year.</div>
+  <div class="footmark">Gemini·ChatGPT·Claude</div>
+</div>
+
+<!-- BOOK 4 — violet -->
+<div class="sq" data-document-role="page" data-label="Thumb — Book 4">
+  <div class="grid-bg"></div>
+  <div class="topblock" style="background:#7C4DFF;"><div class="series">The AI-Powered Classroom</div><div class="booknum">Book Four · Capstone</div></div>
+  <div class="ghost" style="color:#7C4DFF;">4</div>
+  <div class="sticker" style="background:#1B4DFF;"><div class="big">1</div><div class="sm">System</div></div>
+  <div class="body">
+    <div class="title">The AI<br>Command<br>Center<br>Blueprint</div>
+    <div class="sub">Wire it all into one system you run from.</div>
+    <div class="badges"><div class="badge" style="background:#1B4DFF;">Built Around Obsidian</div><div class="badge" style="background:#16162A;">No Coding</div></div>
+  </div>
+  <div class="foot">Now build the machine.</div>
+  <div class="footmark">The Capstone</div>
+</div>
+
+<!-- BUNDLE — hero blue -->
+<div class="sq" data-document-role="page" data-label="Thumb — Complete Bundle">
+  <div class="grid-bg"></div>
+  <div class="topblock" style="background:#1B4DFF;"><div class="series">The AI-Powered Classroom</div><div class="booknum">The Complete Set</div></div>
+  <div class="sticker" style="background:#FF5A5F;"><div class="big">4</div><div class="sm">Books</div></div>
+  <div class="body">
+    <div class="title">The Complete<br>AI Teacher<br>System</div>
+    <div class="sub">All four books — from student projects to your whole classroom on autopilot.</div>
+    <div class="badges" style="margin-top:30px;">
+      <div class="badge" style="background:#FF5A5F;">1 · Projects</div>
+      <div class="badge" style="background:#F5A623;">2 · Workflows</div>
+      <div class="badge" style="background:#0AB6BD;">3 · Agents</div>
+      <div class="badge" style="background:#7C4DFF;">4 · Command Center</div>
+    </div>
+  </div>
+  <div class="foot">Built by a teacher. For teachers.</div>
+  <div class="footmark">Best Value</div>
+</div>
+
+</body></html>

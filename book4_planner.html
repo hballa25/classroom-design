@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>The AI Command Center Blueprint</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap');
+:root{--hero:#1B4DFF;--ink:#16162A;--paper:#FAF7F2;--acc:#7C4DFF;--green:#1B7A43;--violet:#7C4DFF;--blue:#1B4DFF;--amber:#B5651D;--teal:#0AB6BD;--gold:#9A6700;--muted:#6A6A7A;--line:#D9E0EC;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#33333a;font-family:'Inter',sans-serif;}
+.page{width:816px;height:1056px;background:var(--paper);position:relative;overflow:hidden;margin:0 auto;}
+.grid-bg{position:absolute;inset:0;background-image:radial-gradient(circle,#d9d3c8 1.1px,transparent 1.1px);background-size:26px 26px;opacity:.35;}
+.spiral{position:absolute;left:0;top:0;bottom:0;width:54px;background:linear-gradient(180deg,#ececec,#e2e2e2);border-right:2px solid #d4d4d4;z-index:5;}
+.spiral::before{content:"";position:absolute;left:18px;top:34px;bottom:34px;width:18px;background-image:radial-gradient(circle at center,#b9bcc4 0 7px,transparent 7px);background-size:18px 46px;background-repeat:repeat-y;}
+.inner{position:absolute;left:54px;right:0;top:0;bottom:0;padding:40px 50px 36px 40px;z-index:2;}
+.washi{height:32px;width:160px;opacity:.92;transform:rotate(-4deg);box-shadow:0 2px 5px rgba(0,0,0,.12);background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.25) 0 8px,transparent 8px 16px);}
+.postit{padding:16px 16px 14px;box-shadow:3px 6px 14px rgba(0,0,0,.16);font-family:'Caveat';font-weight:700;position:relative;}
+.postit::after{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:60px;height:16px;background:rgba(255,255,255,.45);border-radius:0 0 4px 4px;}
+.rhead{display:flex;justify-content:space-between;align-items:center;border-bottom:2px dotted var(--line);padding-bottom:8px;margin-bottom:14px;}
+.rhead .l{font-family:'Space Grotesk';font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.rhead .r{font-family:'Caveat';font-weight:700;font-size:18px;color:var(--acc);}
+.eyebrow{font-family:'Space Grotesk';font-weight:700;font-size:12px;color:var(--hero);letter-spacing:1px;}
+.tag{font-family:'Space Grotesk';font-weight:700;font-size:11px;color:var(--teal);font-style:normal;}
+.ptitle{font-family:'Space Grotesk';font-weight:700;font-size:25px;color:var(--ink);letter-spacing:-.7px;line-height:1.05;margin:2px 0 4px;}
+.meta{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:10px;line-height:1.4;}
+.hr{height:3px;width:100%;border-radius:2px;margin-bottom:12px;}
+.lead{font-size:12.5px;line-height:1.48;color:#222;margin-bottom:10px;}
+.lead b{font-family:'Space Grotesk';}
+.box{border-radius:8px;padding:11px 14px;margin-bottom:10px;}
+.box .bl{font-family:'Space Grotesk';font-weight:700;font-size:11px;margin-bottom:5px;letter-spacing:.3px;}
+.box .bt{font-size:12px;line-height:1.46;color:#1a1a1a;}
+.box.code .bt{font-family:'Consolas','Courier New',monospace;font-size:11px;}
+.box.green{background:#FCFBF7;border-left:9px solid var(--green);box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.box.green .bt{font-style:italic;color:#2a2a2a;}
+.box.gfree{background:#E6F4EA;border-left:7px solid var(--green);}
+.box.vpaid{background:#F0E8F6;border-left:7px solid var(--violet);}
+.box.teal{background:#E3F1F1;border-left:7px solid var(--teal);}
+.box.amber{background:#FBF0E4;border-left:7px solid var(--amber);}
+.box.blue{background:#EAF1F8;border-left:7px solid var(--blue);}
+.box.gold{background:#F7EFD9;border-left:7px solid var(--gold);}
+.steps{margin:4px 0 10px;}
+.step{font-size:12.5px;line-height:1.45;color:#222;padding-left:22px;position:relative;margin-bottom:4px;counter-increment:st;}
+.step::before{content:counter(st)".";position:absolute;left:2px;color:var(--hero);font-weight:700;font-family:'Space Grotesk';}
+.exth{font-family:'Space Grotesk';font-weight:700;font-size:12.5px;color:var(--hero);margin:5px 0 5px;}
+.ex{font-size:12px;line-height:1.42;color:#222;padding-left:15px;position:relative;margin-bottom:3px;}
+.ex::before{content:"\203A";position:absolute;left:2px;color:var(--acc);font-weight:700;}
+.fg{display:flex;gap:10px;margin:4px 0 10px;}
+.fgc{flex:1;background:#F2F2F2;border-radius:7px;padding:8px 11px;border-top:3px solid #bbb;}
+.fgc.hi{background:#E6F4EA;border-top-color:var(--green);}
+.fgc .h{font-family:'Space Grotesk';font-weight:700;font-size:9px;letter-spacing:.5px;color:var(--muted);text-transform:uppercase;margin-bottom:3px;}
+.fgc .v{font-size:11px;color:#333;line-height:1.3;}
+/* cover */
+.booktab{position:absolute;right:0;top:150px;width:60px;padding:22px 0;border-radius:10px 0 0 10px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:-2px 3px 10px rgba(0,0,0,.18);z-index:6;background:var(--acc);}
+.booktab .num{font-family:'Space Grotesk';font-weight:700;font-size:30px;color:#fff;}
+.booktab .wd{writing-mode:vertical-rl;font-family:'Space Grotesk';font-weight:700;font-size:12px;letter-spacing:3px;color:rgba(255,255,255,.95);text-transform:uppercase;}
+.cv{position:absolute;left:54px;right:0;top:0;bottom:0;padding:60px 56px 50px 40px;display:flex;flex-direction:column;z-index:2;}
+.cv .eb{font-family:'Caveat';font-weight:700;font-size:32px;color:var(--hero);transform:rotate(-1.5deg);}
+.cv .tt{font-family:'Space Grotesk';font-weight:700;font-size:54px;line-height:.99;color:var(--ink);letter-spacing:-2px;margin-top:auto;}
+.cv .sb{font-size:19px;line-height:1.32;color:#3a3a48;font-weight:500;margin-top:18px;max-width:90%;}
+.cv .bd{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap;}
+.cv .bdg{font-family:'Space Grotesk';font-weight:600;font-size:12px;color:#fff;padding:7px 13px;border-radius:5px;box-shadow:1px 2px 5px rgba(0,0,0,.12);}
+.cv .ft{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:34px;border-top:2px dotted var(--line);}
+.cv .ft .tg{font-family:'Caveat';font-weight:700;font-size:24px;color:var(--muted);}
+.cv .ft .mk{font-family:'Space Grotesk';font-weight:700;font-size:12px;letter-spacing:1px;color:var(--ink);text-transform:uppercase;background:#fff;padding:6px 11px;border-radius:5px;box-shadow:1px 2px 5px rgba(0,0,0,.1);}
+.cpin{position:absolute;right:70px;top:120px;width:168px;min-height:140px;font-size:15px;line-height:1.3;color:#3a3320;z-index:4;}
+.cpin b{display:block;font-size:18px;margin-bottom:5px;color:var(--ink);}
+.cpin::before{content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;background:#d23;box-shadow:inset 0 -2px 3px rgba(0,0,0,.3),0 2px 3px rgba(0,0,0,.25);}
+.dv{position:absolute;left:54px;right:0;top:0;bottom:0;padding:0 56px 0 40px;display:flex;flex-direction:column;justify-content:center;z-index:2;}
+.dv .eb{font-family:'Caveat';font-weight:700;font-size:34px;color:var(--acc);transform:rotate(-1deg);margin-bottom:4px;}
+.dv .tt{font-family:'Space Grotesk';font-weight:700;font-size:54px;line-height:1;color:var(--ink);letter-spacing:-2.5px;}
+.dv .sb{font-size:18px;color:#3a3a48;font-weight:500;margin-top:20px;max-width:82%;line-height:1.35;}
+.sec{font-family:'Space Grotesk';font-weight:700;font-size:19px;color:var(--ink);margin:0 0 6px;}
+.para{font-size:12.5px;line-height:1.5;color:#222;margin-bottom:10px;}
+.para b{font-family:'Space Grotesk';}
+</style></head><body><div class="page" data-document-role="page" data-label="Cover"><div class="grid-bg"></div><div class="spiral"></div>
+<div class="booktab"><div class="num">4</div><div class="wd">Capstone</div></div>
+<div class="postit cpin" style="background:#D9C9FF;transform:rotate(-2.5deg);"><b>One hub for everything.</b>Built around Obsidian — free.</div>
+<div class="cv">
+  <div class="eb">the AI-powered classroom</div>
+  <div class="tt">The AI<br>Command<br>Center<br>Blueprint</div>
+  <div class="sb">Wire your agents, notes &amp; plans into one system you run from a single place.</div>
+  <div class="bd"><div class="bdg" style="background:#1B4DFF;">Built Around Obsidian</div><div class="bdg" style="background:#7C4DFF;">Any Notes App</div><div class="bdg" style="background:#16162A;">No Coding</div></div>
+  <div class="ft"><div class="tg">Now build the machine.</div><div class="mk">Classroom-Tested</div></div>
+</div></div>
+<div class="page" data-document-role="page" data-label="Intro"><div class="grid-bg"></div><div class="spiral"></div><div class="inner">
+  <div class="rhead"><div class="l">The AI-Powered Classroom</div><div class="r">the capstone ✎</div></div>
+  <div class="ptitle" style="font-size:30px;">One Place to Run It All</div>
+  <div class="hr" style="background:#7C4DFF;"></div>
+  <div class="para">Here’s where it all comes together. By now you’ve got a shelf of agents that each do one job well — a grading assistant here, a planning partner there, a tutor for the kids. Useful, but scattered. They don’t talk to each other, your notes live in six places, and YOU are still the wire connecting everything. The Command Center fixes that. It’s one hub where your agents, your notes, your plans, and your data all live together and feed each other — so your whole teaching life runs from a single place instead of seventeen browser tabs and a sticky-note avalanche.</div><div class="para">Big honest caveat up front, because I respect you too much to oversell: this is a BLUEPRINT, not an app you download. You’re not buying software and you’re not maintaining code. You’re assembling a system out of tools that already exist — a notes app as the hub, the agents you already built, and a little light automation — wired together the way I wired mine. No app store, no subscriptions to a thing I’m selling, nothing to break at 11 p.m. before observations. Just a system you stand up once and run.</div><div class="para">I built mine around Obsidian, and that’s what I’ll walk you through, because it’s free, it’s yours (your notes live on your own device, not someone’s server), and it connects to everything. But the CONCEPTS work in whatever you already use — Notion, OneNote, Google Docs, even a well-organized Drive. I’ll flag the alternatives as we go. Don’t let the specific app be the thing that stops you.</div><div class="para">Fair warning, same as the agent book: this is the advanced one. I’m assuming you’ve built at least a couple of agents and you’re comfortable. If ‘wire your agents into a hub’ sounds like sci-fi, go build a Gem or two first and come back. This is the capstone, and it’s worth doing when you’re ready for it.</div>
+</div></div>
+<div class="page" data-document-role="page" data-label="System at a Glance"><div class="grid-bg"></div><div class="spiral"></div><div class="inner">
+  <div class="ptitle" style="font-size:28px;">The System at a Glance</div>
+  <div class="para" style="font-style:italic;color:#555;">Five layers, built in order. Each stands on the one before. Stop at any layer and still have something useful — but together they're a machine.</div>
+  <div class="hr" style="background:#7C4DFF;"></div>
+  <div style="display:flex;gap:14px;align-items:center;margin-bottom:13px;"><div style="background:#FF5A5F;color:#fff;font-family:'Space Grotesk';font-weight:700;border-radius:8px;width:90px;flex-shrink:0;text-align:center;padding:14px 0;font-size:14px;">Layer 1</div><div style="flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 16px;"><b style="font-family:'Space Grotesk';font-size:16px;color:var(--ink);">The Hub</b><div style="font-size:13px;color:#555;">One home for everything (your vault)</div></div></div><div style="display:flex;gap:14px;align-items:center;margin-bottom:13px;"><div style="background:#F5A623;color:#fff;font-family:'Space Grotesk';font-weight:700;border-radius:8px;width:90px;flex-shrink:0;text-align:center;padding:14px 0;font-size:14px;">Layer 2</div><div style="flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 16px;"><b style="font-family:'Space Grotesk';font-size:16px;color:var(--ink);">Capture</b><div style="font-size:13px;color:#555;">Get every idea &amp; note into the hub</div></div></div><div style="display:flex;gap:14px;align-items:center;margin-bottom:13px;"><div style="background:#0AB6BD;color:#fff;font-family:'Space Grotesk';font-weight:700;border-radius:8px;width:90px;flex-shrink:0;text-align:center;padding:14px 0;font-size:14px;">Layer 3</div><div style="flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 16px;"><b style="font-family:'Space Grotesk';font-size:16px;color:var(--ink);">Wire In Agents</b><div style="font-size:13px;color:#555;">Your agents work from &amp; feed the hub</div></div></div><div style="display:flex;gap:14px;align-items:center;margin-bottom:13px;"><div style="background:#1B4DFF;color:#fff;font-family:'Space Grotesk';font-weight:700;border-radius:8px;width:90px;flex-shrink:0;text-align:center;padding:14px 0;font-size:14px;">Layer 4</div><div style="flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 16px;"><b style="font-family:'Space Grotesk';font-size:16px;color:var(--ink);">Automation</b><div style="font-size:13px;color:#555;">Light, optional — move info hands-free</div></div></div><div style="display:flex;gap:14px;align-items:center;margin-bottom:13px;"><div style="background:#7C4DFF;color:#fff;font-family:'Space Grotesk';font-weight:700;border-radius:8px;width:90px;flex-shrink:0;text-align:center;padding:14px 0;font-size:14px;">Layer 5</div><div style="flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 16px;"><b style="font-family:'Space Grotesk';font-size:16px;color:var(--ink);">Operating Rhythm</b><div style="font-size:13px;color:#555;">The tiny habit that keeps it alive</div></div></div>
+</div></div>
+<div class="page" data-document-role="page" data-label="Layer 1 — Layer 1 — The Hub (Your Vault)"><div class="grid-bg"></div><div class="spiral"></div><div class="inner">
+    <div class="rhead"><div class="l">The AI Command Center</div><div class="r">layer 1 ✎</div></div>
+    <div class="ptitle">Layer 1 — The Hub (Your Vault)</div>
+    <div class="hr" style="background:var(--green);margin-top:6px;"></div>
+    <div class="lead"><b style="color:var(--hero);">What it is.</b> The hub is your home base — one place where everything about your teaching lives and links together. In Obsidian this is a ‘vault’: a folder of notes you control, that link to each other like a personal wiki for your classroom.</div>
+    <div class="lead"><b style="color:var(--green);">Why it matters.</b> Right now your teaching life is scattered — plans in Drive, notes on paper, ideas in your head, data in a spreadsheet you forget exists. A hub ends the scatter. Everything has one home, and because notes link to each other, finding ‘that thing I wrote about the cells unit’ takes three seconds instead of a tab-by-tab archaeology dig.</div>
+    <div class="box green"><div class="bl" style="color:var(--green);">✍ FROM MY CLASSROOM</div><div class="bt">I resisted the ‘build a second brain’ thing for a long time because it sounded like a productivity-bro rabbit hole, and I did NOT have time to become a note-taking hobbyist. What changed my mind was realizing my teaching life was genuinely scattered across Drive, paper, my actual brain, and a spreadsheet I forgot existed until report cards. The hub fixed the scatter, not by being fancy, but by giving everything ONE home. My honest advice: build it small. Four folders and a dashboard. I overbuilt mine the first time, made it gorgeous, and never used it because it was too precious to touch. Ugly and used beats beautiful and abandoned.</div></div>
+    <div class="sec" style="font-size:16px;margin-top:8px;">Build It</div>
+    <div class="steps"><div class="step">Install Obsidian (free) and create one vault called something like ‘Teaching HQ.’</div><div class="step">Make four folders to start: Units, Lessons, Students (no sensitive data — notes and patterns only), and Agents.</div><div class="step">Create one ‘Dashboard’ note as your front door — links to your current unit, this week’s plans, and your agent list.</div><div class="step">Don’t over-build it. Four folders and a dashboard. You’ll grow it as you actually use it.</div></div>
+    <div class="box gold"><div class="bl" style="color:var(--gold);">⇄ NOT USING OBSIDIAN? — the concept works anywhere</div><div class="bt" style="font-style:italic;">No Obsidian? A Notion workspace, a OneNote notebook, or even a single well-structured Google Doc with links can be your hub. The rule is the same: ONE home, everything links back to it.</div></div>
+  </div></div>
+<div class="page" data-document-role="page" data-label="Layer 2 — Layer 2 — Capture (Get It All In One Place)"><div class="grid-bg"></div><div class="spiral"></div><div class="inner">
+    <div class="rhead"><div class="l">The AI Command Center</div><div class="r">layer 2 ✎</div></div>
+    <div class="ptitle">Layer 2 — Capture (Get It All In One Place)</div>
+    <div class="hr" style="background:var(--green);margin-top:6px;"></div>
+    <div class="lead"><b style="color:var(--hero);">What it is.</b> This layer is about funneling everything — lesson ideas, student observations, plans, that thought you had in the shower — into the hub instead of losing it. Quick capture, consistent home.</div>
+    <div class="lead"><b style="color:var(--green);">Why it matters.</b> The best system in the world fails if stuff never makes it in. Teachers lose brilliant ideas constantly because they happen between classes with no time to record them. A frictionless capture habit means your hub actually reflects your teaching instead of being a pretty, empty folder.</div>
+    
+    <div class="sec" style="font-size:16px;margin-top:8px;">Build It</div>
+    <div class="steps"><div class="step">Set up a single ‘Inbox’ note (or use Obsidian’s daily note) where anything gets dumped fast, sorted later.</div><div class="step">Use templates for the things you make often — a lesson template, a unit template — so capture is fill-in-the-blank, not blank-page.</div><div class="step">Pick ONE capture habit and keep it: end of each class, jot one line about what worked or bombed.</div><div class="step">Weekly, spend ten minutes moving inbox items to their real folders. That’s the whole maintenance cost.</div></div>
+    <div class="box gold"><div class="bl" style="color:var(--gold);">⇄ NOT USING OBSIDIAN? — the concept works anywhere</div><div class="bt" style="font-style:italic;">Any notes app with a quick-capture (Apple Notes, Google Keep, Notion quick-add) works. The point is low friction — if capturing takes more than a few seconds, you won’t do it.</div></div>
+  </div></div>
+<div class="page" data-document-role="page" data-label="Layer 3 — Layer 3 — Wire In Your Agents"><div class="grid-bg"></div><div class="spiral"></div><div class="inner">
+    <div class="rhead"><div class="l">The AI Command Center</div><div class="r">layer 3 ✎</div></div>
+    <div class="ptitle">Layer 3 — Wire In Your Agents</div>
+    <div class="hr" style="background:var(--green);margin-top:6px;"></div>
+    <div class="lead"><b style="color:var(--hero);">What it is.</b> This is where the Command Center earns its name: connecting the agents you built in the last book to your hub, so they work FROM your real materials and their outputs land back in one place.</div>
+    <div class="lead"><b style="color:var(--green);">Why it matters.</b> An agent floating in a browser tab is useful. An agent connected to your hub — pulling from your real unit notes, dropping its output into your real lesson folder — is a system. This is the difference between ‘I have some AI tools’ and ‘my classroom runs on a connected machine.’</div>
+    <div class="box green"><div class="bl" style="color:var(--green);">✍ FROM MY CLASSROOM</div><div class="bt">This is the moment the whole thing stopped being ‘some AI tricks’ and started being a system. The shift was small but it rewired how my days feel: instead of hunting for my rubric across downloads every time I graded, it just lives in my vault and the grading assistant pulls from it. Instead of the tutor’s summaries vanishing into a chat history, they land in the kid’s note where I’ll actually see them. Nothing dramatic — just everything finally being in one place and feeding each other. The first week it clicked, I remember thinking I’d accidentally built myself a little teaching co-pilot out of free tools.</div></div>
+    <div class="sec" style="font-size:16px;margin-top:8px;">Build It</div>
+    <div class="steps"><div class="step">In your Agents folder, make one note per agent: what it does, its instructions (so you can rebuild or share it), and a link to open it.</div><div class="step">Feed your agents from the hub: when your Grading Assistant needs your rubric, it’s right there in your vault, ready to paste or upload.</div><div class="step">Land outputs back home: paste the planning partner’s drafts into your Lessons folder, the tutor’s session summaries into the student’s note.</div><div class="step">Now your hub is the agents’ memory — the context they need lives in one place you control.</div></div>
+    <div class="box gold"><div class="bl" style="color:var(--gold);">⇄ NOT USING OBSIDIAN? — the concept works anywhere</div><div class="bt" style="font-style:italic;">This works regardless of hub — the principle is that your agents’ inputs (rubrics, standards) and outputs (drafts, summaries) both live in your hub, not scattered across downloads and chat histories.</div></div>
+  </div></div>
+<div class="page" data-document-role="page" data-label="Layer 4 — Layer 4 — The Automation Layer (Light Touch)"><div class="grid-bg"></div><div class="spiral"></div><div class="inner">
+    <div class="rhead"><div class="l">The AI Command Center</div><div class="r">layer 4 ✎</div></div>
+    <div class="ptitle">Layer 4 — The Automation Layer (Light Touch)</div>
+    <div class="hr" style="background:var(--green);margin-top:6px;"></div>
+    <div class="lead"><b style="color:var(--hero);">What it is.</b> A little automation that moves information around without you doing it by hand — connecting your tools so things flow. Keep it light: a few high-value connections, not a fragile Rube Goldberg machine.</div>
+    <div class="lead"><b style="color:var(--green);">Why it matters.</b> This is the layer that buys back real time, but it’s also where people overengineer and build something that breaks constantly. The honest move is to automate only the boring, repetitive hand-offs — and leave the rest manual. A few good automations beat fifty brittle ones you’re always fixing.</div>
+    
+    <div class="sec" style="font-size:16px;margin-top:8px;">Build It</div>
+    <div class="steps"><div class="step">Start with ONE automation that solves a real annoyance — e.g., a form response that auto-lands in a tracking sheet your agent reads.</div><div class="step">Use no-code connectors (your school’s Google tools, simple Zapier/Make flows) — nothing that requires actual coding.</div><div class="step">Test it, then leave it alone. Automation you have to babysit isn’t saving you time.</div><div class="step">Resist the urge to automate everything. If a task takes 30 seconds and happens rarely, just do it by hand.</div></div>
+    <div class="box gold"><div class="bl" style="color:var(--gold);">⇄ NOT USING OBSIDIAN? — the concept works anywhere</div><div class="bt" style="font-style:italic;">No appetite for automation? Skip this layer entirely. The Command Center works fully as a manual system — automation is the bonus, not the foundation. Many teachers stop at Layer 3 and are thrilled.</div></div>
+  </div></div>
+<div class="page" data-document-role="page" data-label="Layer 5 — Layer 5 — The Operating Rhythm"><div class="grid-bg"></div><div class="spiral"></div><div class="inner">
+    <div class="rhead"><div class="l">The AI Command Center</div><div class="r">layer 5 ✎</div></div>
+    <div class="ptitle">Layer 5 — The Operating Rhythm</div>
+    <div class="hr" style="background:var(--green);margin-top:6px;"></div>
+    <div class="lead"><b style="color:var(--hero);">What it is.</b> The system only works if you actually run it. This layer is the light weekly and daily rhythm that keeps the Command Center alive instead of becoming another abandoned app.</div>
+    <div class="lead"><b style="color:var(--green);">Why it matters.</b> Every teacher has a graveyard of systems they set up once and never touched again. The difference between a tool you use and a tool you abandon is a tiny, sustainable rhythm — not a heroic daily ritual. This is how the Command Center becomes a habit instead of a guilt object.</div>
+    <div class="box green"><div class="bl" style="color:var(--green);">✍ FROM MY CLASSROOM</div><div class="bt">Here’s my graveyard confession: I have set up SO many systems I never touched again. Planners, apps, color-coded everything — abandoned by October. What finally made one stick was making the upkeep almost insultingly small. Two minutes a day, fifteen on the weekend. The second a system asks more than that, real teaching life steamrolls it. So when I tell you to keep the rhythm tiny, it’s not me being nice — it’s the only version that survives contact with a normal teaching week. Don’t build a system that needs a heroic version of you to run it. Build one that the tired, normal you will actually keep.</div></div>
+    <div class="sec" style="font-size:16px;margin-top:8px;">Build It</div>
+    <div class="steps"><div class="step">Daily (2 min): open your dashboard, glance at today, jot one capture note after your classes.</div><div class="step">Weekly (15 min): clear your inbox into folders, check your mastery data, set up next week from your templates.</div><div class="step">Monthly (20 min): refresh your agents’ uploaded content for the new unit, prune notes you don’t need.</div><div class="step">That’s it. Under 20 minutes a week of upkeep to run your entire teaching life from one place.</div></div>
+    <div class="box gold"><div class="bl" style="color:var(--gold);">⇄ NOT USING OBSIDIAN? — the concept works anywhere</div><div class="bt" style="font-style:italic;">Whatever your hub, the rhythm is the same: a tiny daily touch, a short weekly tidy, a monthly refresh. Keep it small enough that you’ll actually do it.</div></div>
+  </div></div>
+<div class="page" data-document-role="page" data-label="A Day in the Life"><div class="grid-bg"></div><div class="spiral"></div><div class="inner">
+  <div class="ptitle" style="font-size:28px;">A Day in the Life (Once It's Running)</div>
+  <div class="hr" style="background:#7C4DFF;"></div>
+  <div class="para">Let me show you what a normal day actually looks like once this is running, because ‘connected system’ is abstract until you see it in motion.</div><div class="para">Morning, coffee in hand: I open my dashboard note. It links to today’s lesson, which my planning partner drafted from the standards already sitting in my vault. The Do Now’s ready because yesterday’s exit-slip data — captured into the hub — told the loop what to review. I skim, tweak one thing, done. Five minutes.</div><div class="para">During the day: a kid says something brilliant in third period, so I dump one line into my inbox note between classes. After my last class, I jot what worked and what bombed — ten seconds, and it’s captured forever instead of forgotten by the parking lot.</div><div class="para">After school: the grading assistant drafts feedback off the rubric that lives in my vault; I review and personalize. The tutor’s session summaries from last night’s ‘homework’ are sitting in my students’ notes, so I already know who practiced and who’s stuck before I even plan tomorrow. The whole loop closes, and I’m out the door at a reasonable hour.</div><div class="para">None of that is sci-fi. It’s five free-or-cheap tools, wired together once, run with a 2-minute daily habit. That’s the Command Center. You already built the parts in the last three books — this just connects them into the machine.</div>
+  <div class="postit" style="background:#D9C9FF;width:340px;margin:18px auto 0;transform:rotate(-1.5deg);font-size:15px;line-height:1.35;color:#2a2340;text-align:center;">Five free-or-cheap tools, wired together once, run with a 2-minute daily habit. That's the Command Center.</div>
+</div></div>
+<div class="page" data-document-role="page" data-label="You Built the Machine"><div class="grid-bg"></div><div class="spiral"></div><div class="inner">
+  <div class="ptitle" style="font-size:30px;">You Built the Machine</div>
+  <div class="hr" style="background:#7C4DFF;"></div>
+  <div class="para">That's the whole series. You started by teaching students to use AI without offloading their brains, learned to claw back your own time with workflows, built a team of agents that know your classroom, and just wired them into one system you run from a single place.</div>
+  <div class="para">That's not a pile of AI tricks — that's a genuinely modern classroom, built by you, on your terms, mostly with free tools. Be a little proud of that.</div>
+  <div class="postit" style="background:#FFF3A8;width:300px;margin-top:20px;transform:rotate(2deg);font-size:16px;line-height:1.4;color:#3a3320;"><b style="font-size:18px;color:var(--ink);display:block;margin-bottom:5px;">The complete set:</b>1 · Student Projects &nbsp; 2 · Workflows &nbsp; 3 · Agents &nbsp; 4 · Command Center</div>
+</div></div>
+<div class="page" data-document-role="page" data-label="No-Pressure PD Week"><div class="grid-bg"></div><div class="spiral"></div><div class="inner">
+  <div style="display:inline-block;font-family:'Space Grotesk';font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fff;background:var(--green);padding:5px 12px;border-radius:5px;">Summer-Friendly · Self-Paced</div>
+  <div style="font-family:'Space Grotesk';font-weight:700;font-size:34px;color:var(--ink);letter-spacing:-1px;margin:12px 0 2px;">Your No-Pressure Week</div>
+  <div style="font-family:'Caveat';font-weight:700;font-size:23px;color:var(--green);">~1 hour a day · 5 days · totally optional</div>
+  <div class="hr" style="background:var(--green);margin:15px 0 16px;"></div>
+  <div style="font-size:13px;line-height:1.5;color:#333;font-style:italic;margin-bottom:18px;">Do it with your coffee, in your pajamas. No quiz, no certificate, nobody checking. Stand up your whole system in a calm week.</div>
+  <div style="display:flex;gap:13px;align-items:stretch;margin-bottom:11px;"><div style="background:#1B4DFF;color:#fff;font-family:'Space Grotesk';font-weight:700;border-radius:8px;width:74px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;">MON</div><div style="flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 14px;"><b style="font-family:'Space Grotesk';font-size:14px;color:var(--ink);">Build the Hub.</b> <span style="font-size:12.5px;color:#444;">Install Obsidian, make your vault, four folders, one dashboard. ~30 min.</span></div></div><div style="display:flex;gap:13px;align-items:stretch;margin-bottom:11px;"><div style="background:#7C4DFF;color:#fff;font-family:'Space Grotesk';font-weight:700;border-radius:8px;width:74px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;">TUE</div><div style="flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 14px;"><b style="font-family:'Space Grotesk';font-size:14px;color:var(--ink);">Set Up Capture.</b> <span style="font-size:12.5px;color:#444;">Make your inbox note + a couple templates. Build the habit.</span></div></div><div style="display:flex;gap:13px;align-items:stretch;margin-bottom:11px;"><div style="background:#FF5A5F;color:#fff;font-family:'Space Grotesk';font-weight:700;border-radius:8px;width:74px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;">WED</div><div style="flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 14px;"><b style="font-family:'Space Grotesk';font-size:14px;color:var(--ink);">Wire In One Agent.</b> <span style="font-size:12.5px;color:#444;">Connect one agent you already built. Feel the system click.</span></div></div><div style="display:flex;gap:13px;align-items:stretch;margin-bottom:11px;"><div style="background:#0AB6BD;color:#fff;font-family:'Space Grotesk';font-weight:700;border-radius:8px;width:74px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;">THU</div><div style="flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 14px;"><b style="font-family:'Space Grotesk';font-size:14px;color:var(--ink);">Automation OR Skip.</b> <span style="font-size:12.5px;color:#444;">Set up one simple automation, or skip and organize your vault.</span></div></div><div style="display:flex;gap:13px;align-items:stretch;margin-bottom:11px;"><div style="background:#F5A623;color:#fff;font-family:'Space Grotesk';font-weight:700;border-radius:8px;width:74px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;">FRI</div><div style="flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 14px;"><b style="font-family:'Space Grotesk';font-size:14px;color:var(--ink);">Set Your Rhythm.</b> <span style="font-size:12.5px;color:#444;">Decide your tiny daily/weekly habit. Write it on your dashboard.</span></div></div>
+  <div class="postit" style="background:#BDE7C8;width:330px;margin:18px auto 0;transform:rotate(-1.5deg);font-size:15px;line-height:1.35;color:#2a3a2d;text-align:center;">A system you half-built and actually use beats a perfect one that exhausted you. Go enjoy your break. ☀</div>
+</div></div>
+</body></html>
